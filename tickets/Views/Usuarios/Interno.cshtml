@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Usuarios Internos";
+}
+
+<div class="flex justify-center items-center h-full">
+    <div class="bg-custom p-12 rounded-lg shadow-md w-full max-w-3xl">
+        <h2 class="text-4xl font-bold mb-8 text-center text-white">
+            Registrar Usuario Interno
+        </h2>
+        <form action="#" method="POST" class="grid grid-cols-2 gap-6">
+            <div>
+                <label for="nombre" class="block text-gray-200 text-lg font-bold mb-2">Nombre</label>
+                <input type="text" id="nombre" name="nombre" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre" />
+            </div>
+            <div>
+                <label for="apellido" class="block text-gray-200 text-lg font-bold mb-2">Apellido</label>
+                <input type="text" id="apellido" name="apellido" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Apellido" />
+            </div>
+            <div>
+                <label for="email" class="block text-gray-200 text-lg font-bold mb-2">E-Mail</label>
+                <input type="email" id="email" name="email" class="shadow appearance-none border text-sm rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="E-mail" />
+            </div>
+            <div>
+                <label for="username" class="block text-gray-200 text-lg font-bold mb-2">Username</label>
+                <input type="text" id="username" name="username" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Username" />
+            </div>
+            <div>
+                <label for="contrasena" class="block text-gray-200 text-lg font-bold mb-2">Contraseña</label>
+                <input type="password" id="contrasena" name="contrasena" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="********" />
+            </div>
+            <div>
+                <label for="rol" class="block text-gray-200 text-lg font-bold mb-2">Rol</label>
+                <select id="rol" name="rol" class="shadow appearance-none border rounded w-full py-3 px-4 text-sm text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="">Seleccione un rol</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
+            <div class="col-span-2 flex items-center justify-center mt-6">
+                <button type="submit" class="bg-button hover:bg-teal-700 text-white text-lg font-bold text-sm py-3 px-6 rounded focus:outline-none focus:shadow-outline">
+                    Sign Up
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

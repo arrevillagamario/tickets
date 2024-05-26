@@ -9,41 +9,158 @@
     <link rel="stylesheet" href="~/tickets.styles.css" asp-append-version="true" />
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-custom {
+            background-color: rgba(29, 158, 154, 0.5);
+        }
+
+        .bg-button {
+            background-color: #1d9e9a;
+        }
+
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 0.9rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .close-button {
+            background-color: transparent;
+            border: none;
+            font-size: 1.25rem;
+        } 
+
+        
+
+        .scrollbar-custom::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        .scrollbar-custom::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .scrollbar-custom::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+                background: #555;
+        }
+    </style>
 
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">tickets</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+<body class="flex  bg-cover text-3xl h-screen"
+      style="background-image: url('/fondo.png'); ">
+
+
+
+    <!--ESTE ES EL PANEL PARA CUANDO SE LOGUEE COMO USUARIO-->
+
+   <div class="bg-button text-white w-1/4 flex flex-col pt-24 space-y-7">
+        <div class="flex items-center justify-center space-x-3">
+            <p class="font-bold">Admin</p>
+            <img src="/perfil.svg" width="35px" />
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a  asp-controller="Tickets" asp-action="CrearTicket" class="font-semibold text-white">Crear ticket</a>
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="TicketsCreados" class="font-semibold text-white"> Tickets recibidos</a>
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="TicketsEnPausa"  class="font-semibold text-white">Tickets en pausa</a>
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="TicketsEnProgreso" class="font-semibold text-white">Tickets en progreso</a>
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="TicketsResueltos" class="font-semibold text-white">Tickets resueltos</a>
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Usuarios" asp-action="Index" class="font-semibold text-white">Registrar usuario</a>
+        </div>
+     </div>
+
+
+
+
+
+
+    <!--ESTE ES EL PANEL PARA CUANDO SE LOGUEE COMO USUARIO-->
+
+
+    <!--<div class="bg-button text-white w-1/4 flex flex-col pt-24 space-y-7">
+        <div class="flex items-center justify-center space-x-3">
+            <p class="font-bold">Técnico</p>    
+            <img src="/perfil.svg" width="35px" />
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="CrearTicket" class="font-semibold text-white">Crear ticket</a>
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="TicketsCreados" class="font-semibold text-white"> Tickets recibidos</a>
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="TicketsEnPausa" class="font-semibold text-white">Tickets en pausa</a>
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="TicketsEnProgreso" class="font-semibold text-white">Tickets en progreso</a>
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="TicketsResueltos" class="font-semibold text-white">Tickets resueltos</a>
+        </div>
+       
+    </div>-->
+
+
+
+
+    <!--ESTE ES EL PANEL PARA CUANDO SE LOGUEE COMO USUARIO-->
+
+    <!--<div class="bg-button text-white w-1/4 flex flex-col pt-24 space-y-7">
+        <div class="flex items-center justify-center space-x-3">
+            <p class="font-bold">Usuario</p>
+            <img src="/perfil.svg" width="35px" />
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="TicketsCreados" class="font-semibold text-white">Mis Tickets</a>
+        </div>
+        <div class="flex items-center">
+            <img src="/point.svg" width="40px" class="mr-5" />
+            <a asp-controller="Tickets" asp-action="CrearTicket" class="font-semibold text-white">Crear Tickets</a>
+        </div>
+    </div>-->
+
+    <div class="flex-1 flex flex-col">
+        <div class="flex justify-end p-4">
+            <img src="/logo.png" alt="Alternate Text" />
+        </div>
+        <div class="flex justify-center items-center flex-1 bg-cover" style="background-image: url('/fondo.png')">
+            <main role="main" class="w-full h-full flex justify-center items-center">
+                @RenderBody()
+            </main>
+        </div>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - tickets - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Crear Ticket";
+}
+<div class="flex flex-col w-full h-full justify-center items-center">
+    <h1 class="text-4xl font-bold text-teal-700 text-center mb-8">
+        Crear Ticket
+    </h1>
+    <div class="bg-custom p-8 rounded-lg shadow-lg w-full max-w-3xl">
+        <form>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-white text-sm font-bold mb-2"
+                           for="service-name">NOMBRE DEL SERVICIO</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                           id="service-name"
+                           type="text" />
+                </div>
+                <div>
+                    <label class="block text-white text-sm font-bold mb-2"
+                           for="problem-description">DESCRIPCIÓN DEL PROBLEMA</label>
+                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              id="problem-description"
+                              rows="4"></textarea>
+                </div>
+                <div class="flex flex-col items-center">
+                    <label class="block text-white text-sm font-bold mb-2">ARCHIVOS DE RESPALDO</label>
+                    <label class="flex items-center" for="supporting-files">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="50"
+                             height="50"
+                             viewBox="0 0 24 24">
+                            <path fill="#ffffff"
+                                  fill-rule="evenodd"
+                                  d="M1.25 12C1.25 6.063 6.063 1.25 12 1.25S22.75 6.063 22.75 12S17.937 22.75 12 22.75S1.25 17.937 1.25 12m7 5a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75m7.78-6.97l-3.5 3.5a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06l2.22 2.22V6a.75.75 0 0 1 1.5 0v5.19l2.22-2.22a.75.75 0 1 1 1.06 1.06"
+                                  clip-rule="evenodd" />
+                        </svg>
+                        <input class="hidden" id="supporting-files" type="file" />
+                    </label>
+                </div>
+                <div>
+                    <label class="block text-white text-sm font-bold mb-2"
+                           for="priority">PRIORIDAD</label>
+                    <select class="shadow appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="priority">
+                        <option>Baja</option>
+                        <option>Media</option>
+                        <option>Alta</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex items-center justify-center mt-6">
+                <button class="bg-teal-700 hover:bg-teal-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="button">
+                    Crear
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

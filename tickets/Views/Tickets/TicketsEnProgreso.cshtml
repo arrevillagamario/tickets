@@ -1,0 +1,363 @@
+﻿@{
+    ViewData["Title"] = "Tickets en progreso";
+}
+
+<div class="container mx-auto p-6 rounded-lg shadow-lg scrollbar-custom overflow-y-auto" style="height:600px">
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-teal-700">Tickets en progreso</h1>
+        <p class="text-5xl text-teal-600 py-5">9</p>
+    </div>
+    <div class="space-y-6">
+        <div class="bg-white shadow-lg rounded-lg p-6 flex justify-between items-center">
+            <div class="flex-1">
+                <p class="text-sm font-semibold text-teal-700 mb-2">
+                    Fecha de Creación
+                </p>
+                <h2 class="text-xl font-bold text-teal-700">Ticket #3</h2>
+                <p class="text-sm text-gray-600 mt-2">Aplicación 1</p>
+                <p class="text-sm text-gray-600">Nivel De Prioridad</p>
+            </div>
+            <div class="flex space-x-4">
+                <button class="bg-teal-500 text-white px-4 py-2  text-sm font-bold rounded-lg" onclick="openModalDetalle()">
+                    Descripción Del Ticket
+                </button>
+                <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg flex items-center" onclick="openModalProgreso()">
+                    Ver Progreso
+                    <svg class="ml-2 w-4 h-4"
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Ticket Card -->
+
+        <div class="bg-white shadow-lg rounded-lg p-6 flex justify-between items-center">
+            <div class="flex-1">
+                <p class="text-sm font-semibold text-teal-700 mb-2">
+                    Fecha de Creación
+                </p>
+                <h2 class="text-xl font-bold text-teal-700">Ticket #3</h2>
+                <p class="text-sm text-gray-600 mt-2">Aplicación 1</p>
+                <p class="text-sm text-gray-600">Nivel De Prioridad</p>
+            </div>
+            <div class="flex space-x-4">
+                <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg">
+                    Descripción Del Ticket
+                </button>
+                <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg flex items-center">
+                    Ver Progreso
+                    <svg class="ml-2 w-4 h-4"
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="bg-white shadow-lg rounded-lg p-6 flex justify-between items-center">
+            <div class="flex-1">
+                <p class="text-sm font-semibold text-teal-700 mb-2">
+                    Fecha de Creación
+                </p>
+                <h2 class="text-xl font-bold text-teal-700">Ticket #3</h2>
+                <p class="text-sm text-gray-600 mt-2">Aplicación 1</p>
+                <p class="text-sm text-gray-600">Nivel De Prioridad</p>
+            </div>
+            <div class="flex space-x-4">
+                <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg">
+                    Descripción Del Ticket
+                </button>
+                <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg flex items-center">
+                    Ver Progreso
+                    <svg class="ml-2 w-4 h-4"
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="bg-white shadow-lg rounded-lg p-6 flex justify-between items-center">
+            <div class="flex-1">
+                <p class="text-sm font-semibold text-teal-700 mb-2">
+                    Fecha de Creación
+                </p>
+                <h2 class="text-xl font-bold text-teal-700">Ticket #3</h2>
+                <p class="text-sm text-gray-600 mt-2">Aplicación 1</p>
+                <p class="text-sm text-gray-600">Nivel De Prioridad</p>
+            </div>
+            <div class="flex space-x-4">
+                <button class="bg-teal-500  text-sm font-bold text-white px-4 py-2 rounded-lg">
+                    Descripción Del Ticket
+                </button>
+                <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg flex items-center">
+                    Ver Progreso
+                    <svg class="ml-2 w-4 h-4"
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="bg-white shadow-lg rounded-lg p-6 flex justify-between items-center">
+            <div class="flex-1">
+                <p class="text-sm font-semibold text-teal-700 mb-2">
+                    Fecha de Creación
+                </p>
+                <h2 class="text-xl font-bold text-teal-700">Ticket #3</h2>
+                <p class="text-sm text-gray-600 mt-2">Aplicación 1</p>
+                <p class="text-sm text-gray-600">Nivel De Prioridad</p>
+            </div>
+            <div class="flex space-x-4">
+                <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg">
+                    Descripción Del Ticket
+                </button>
+                <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg flex items-center">
+                    Ver Progreso
+                    <svg class="ml-2 w-4 h-4"
+                         fill="none"
+                         stroke="currentColor"
+                         viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalDetalle"
+     class="modal-overlay hidden fixed inset-0 flex items-center justify-center">
+    <div class="modal-content relative p-8 w-full max-w-2xl">
+        <button class="close-button absolute top-2 right-2 text-teal-600"
+                onclick="closeModalDetalle()">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="40"
+                 height="40"
+                 viewBox="0 0 24 24">
+                <path fill="#1D9E9A"
+                      fill-rule="evenodd"
+                      d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10M8.97 8.97a.75.75 0 0 1 1.06 0L12 10.94l1.97-1.97a.75.75 0 0 1 1.06 1.06L13.06 12l1.97 1.97a.75.75 0 0 1-1.06 1.06L12 13.06l-1.97 1.97a.75.75 0 0 1-1.06-1.06L10.94 12l-1.97-1.97a.75.75 0 0 1 0-1.06"
+                      clip-rule="evenodd" />
+            </svg>
+        </button>
+        <h2 class="text-4xl font-bold text-teal-700 text-center mb-8">
+            Detalle del Ticket
+        </h2>
+        <form>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-teal-700 text-sm font-bold mb-2"
+                           for="detalle-problema">DETALLE DEL PROBLEMA</label>
+                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
+                              id="detalle-problema"
+                              rows="6"></textarea>
+                </div>
+                <div>
+                    <label class="block text-teal-700 text-sm font-bold mb-2"
+                           for="detalle-actividad">DETALLE DE ACTIVIDAD</label>
+                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
+                              id="detalle-actividad"
+                              rows="6"></textarea>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-teal-700 text-sm font-bold mb-2"
+                       for="archivos-adjuntos">ARCHIVOS ADJUNTOS</label>
+                <div id="archivos-adjuntos"
+                     class="flex space-x-4 bg-gray-200 p-4 rounded">
+                    <div class="bg-white p-2 rounded">
+                        <img src="https://via.placeholder.com/100"
+                             alt="Adjunto 1"
+                             class="w-full h-full object-cover" />
+                    </div>
+                    <div class="bg-white p-2 rounded">
+                        <img src="https://via.placeholder.com/100"
+                             alt="Adjunto 2"
+                             class="w-full h-full object-cover" />
+                    </div>
+                    <div class="bg-white p-2 rounded">
+                        <img src="https://via.placeholder.com/100"
+                             alt="Adjunto 3"
+                             class="w-full h-full object-cover" />
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center justify-center mt-4">
+                <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="button" onclick="openModalCliente()">
+                    Contactar al Cliente
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="modalProgreso"
+     class="modal-overlay hidden fixed inset-0 flex items-center justify-center">
+    <div class="modal-content relative p-10 w-full max-w-3xl">
+        <button class="close-button absolute top-2 right-2 text-teal-600"
+                onclick="closeModalProgreso()">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="40"
+                 height="40"
+                 viewBox="0 0 24 24">
+                <path fill="#1D9E9A"
+                      fill-rule="evenodd"
+                      d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10M8.97 8.97a.75.75 0 0 1 1.06 0L12 10.94l1.97-1.97a.75.75 0 0 1 1.06 1.06L13.06 12l1.97 1.97a.75.75 0 0 1-1.06 1.06L12 13.06l-1.97 1.97a.75.75 0 0 1-1.06-1.06L10.94 12l-1.97-1.97a.75.75 0 0 1 0-1.06"
+                      clip-rule="evenodd" />
+            </svg>
+        </button>
+        <h2 class="text-4xl font-bold text-teal-700 text-center mb-8">
+            Progreso del Ticket
+        </h2>
+        <div class="flex justify-center space-x-4 mb-8">
+            <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Finalizar Ticket
+            </button>
+            <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Pausar Ticket
+            </button>
+        </div>
+        <form>
+            <div class="mb-6">
+                <label class="block text-teal-700 text-sm font-bold mb-2"
+                       for="usuario">ASIGNAR ACTIVIDAD DEL TICKET</label>
+                <select class="shadow appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="usuario">
+                    <option>USUARIO</option>
+                </select>
+            </div>
+            <div class="mb-6">
+                <label class="block text-teal-700 text-sm font-bold mb-2"
+                       for="detalle">DETALLE DE ACTIVIDAD</label>
+                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="detalle"
+                          rows="4"></textarea>
+            </div>
+            <div class="flex items-center justify-center">
+                <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="button">
+                    Actualizar Ticket
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="modalCliente"
+     class="modal-overlay hidden fixed inset-0 flex items-center justify-center">
+    <div class="modal-content relative p-8 w-full max-w-2xl">
+        <button class="close-button absolute top-2 right-2 text-teal-600"
+                onclick="closeModalCliente()">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="40"
+                 height="40"
+                 viewBox="0 0 24 24">
+                <path fill="#1D9E9A"
+                      fill-rule="evenodd"
+                      d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10M8.97 8.97a.75.75 0 0 1 1.06 0L12 10.94l1.97-1.97a.75.75 0 0 1 1.06 1.06L13.06 12l1.97 1.97a.75.75 0 0 1-1.06 1.06L12 13.06l-1.97 1.97a.75.75 0 0 1-1.06-1.06L10.94 12l-1.97-1.97a.75.75 0 0 1 0-1.06"
+                      clip-rule="evenodd" />
+            </svg>
+        </button>
+        <h2 class="text-4xl font-bold text-teal-700 text-center mb-8">
+            Información del Cliente
+        </h2>
+        <form>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-teal-700 text-sm font-bold mb-2"
+                           for="nombre">NOMBRE</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
+                           id="nombre"
+                           type="text" />
+                </div>
+                <div>
+                    <label class="block text-teal-700 text-sm font-bold mb-2"
+                           for="apellido">APELLIDO</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
+                           id="apellido"
+                           type="text" />
+                </div>
+                <div>
+                    <label class="block text-teal-700 text-sm font-bold mb-2"
+                           for="email">E-MAIL</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
+                           id="email"
+                           type="email" />
+                </div>
+                <div>
+                    <label class="block text-teal-700 text-sm font-bold mb-2"
+                           for="telefono">TELÉFONO</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
+                           id="telefono"
+                           type="tel" />
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-teal-700 text-sm font-bold mb-2"
+                           for="consulta">DUDAS O CONSULTAS</label>
+                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              id="consulta"
+                              rows="4"></textarea>
+                </div>
+            </div>
+            <div class="flex items-center justify-center mt-4">
+                <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="button">
+                    Enviar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openModalDetalle() {
+        document.getElementById("modalDetalle").classList.remove("hidden");
+    }
+
+    function closeModalDetalle() {
+        document.getElementById("modalDetalle").classList.add("hidden");
+    }
+    function openModalProgreso() {
+        document.getElementById("modalProgreso").classList.remove("hidden");
+    }
+
+    function closeModalProgreso() {
+        document.getElementById("modalProgreso").classList.add("hidden");
+    }
+    function openModalCliente() {
+        document.getElementById("modalCliente").classList.remove("hidden");
+    }
+
+    function closeModalCliente() {
+        document.getElementById("modalCliente").classList.add("hidden");
+    }
+
+</script>

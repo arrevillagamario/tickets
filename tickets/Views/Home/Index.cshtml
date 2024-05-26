@@ -1,8 +1,75 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-white bg-gray-500 flex">
-    <h1 >Holaaaa</h1>
-    <h1>hola</h1>
+<div >
+    <div class="  bg-custom p-8 rounded shadow-md">
+        <h2 class="text-3xl font-bold mb-6 text-center text-white">
+            Registrar Usuario Interno
+        </h2>
+        <form action="#" method="POST" class="grid grid-cols-2 gap-4">
+            <div>
+                <label for="nombre"
+                       class="block text-gray-700 text-sm font-bold mb-2 text-white">Nombre</label>
+                <input type="text"
+                       id="nombre"
+                       name="nombre"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                       placeholder="Nombre" />
+            </div>
+            <div>
+                <label for="apellido"
+                       class="block text-gray-700 text-sm font-bold mb-2 text-white">Apellido</label>
+                <input type="text"
+                       id="apellido"
+                       name="apellido"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                       placeholder="Apellido" />
+            </div>
+            <div>
+                <label for="email"
+                       class="block text-gray-700 text-sm font-bold mb-2 text-white">E-Mail</label>
+                <input type="email"
+                       id="email"
+                       name="email"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                       placeholder="E-mail" />
+            </div>
+            <div>
+                <label for="username"
+                       class="block text-gray-700 text-sm font-bold mb-2 text-white">Username</label>
+                <input type="text"
+                       id="username"
+                       name="username"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                       placeholder="Username" />
+            </div>
+            <div>
+                <label for="contrasena"
+                       class="block text-gray-700 text-sm font-bold mb-2 text-white">Contraseña</label>
+                <input type="password"
+                       id="contrasena"
+                       name="contrasena"
+                       class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                       placeholder="********" />
+            </div>
+            <div>
+                <label for="rol"
+                       class="block text-gray-700 text-sm font-bold mb-2 text-white">Rol</label>
+                <select id="rol"
+                        name="rol"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="">Seleccione un rol</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+            </div>
+            <div class="col-span-2 flex items-center justify-center mt-4">
+                <button type="submit"
+                        class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Sign Up
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
