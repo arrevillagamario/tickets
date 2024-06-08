@@ -28,7 +28,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultSignOutScheme = IdentityConstants.ApplicationScheme;
 }).AddCookie(IdentityConstants.ApplicationScheme, opciones =>
 {
-    opciones.LoginPath = "/cliente/login";
+    opciones.LoginPath = "/usuarios/login";
 });
 
 builder.Services.AddIdentityCore<Usuario>(opciones =>
@@ -60,6 +60,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Usuarios}/{action=Login}/{id?}");
 
 app.Run();

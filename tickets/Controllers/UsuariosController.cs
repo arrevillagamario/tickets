@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using tickets.Models;
+using tickets.Servicios;
 
 namespace tickets.Controllers
 {
@@ -9,11 +11,15 @@ namespace tickets.Controllers
     {
         private readonly UserManager<Usuario> _userManager;
         private readonly SignInManager<Usuario> _signIn;
+        private readonly IAutenticacionUsuarios autenticacion;
+        private readonly IRepositorioUsuarios repositorioUsuarios;
 
-        public UsuariosController(UserManager<Usuario> userManager, SignInManager<Usuario> signIn)
+        public UsuariosController(UserManager<Usuario> userManager, SignInManager<Usuario> signIn, IAutenticacionUsuarios autenticacion, IRepositorioUsuarios repositorioUsuarios)
         {
             _userManager = userManager;
             _signIn = signIn;
+            this.autenticacion = autenticacion;
+            this.repositorioUsuarios = repositorioUsuarios;
         }
         public ActionResult Index()
         {
@@ -65,6 +71,45 @@ namespace tickets.Controllers
             return View();
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            var resultado = await _signIn.PasswordSignInAsync(viewModel.Email,
+                viewModel.Contrasena, viewModel.Recuerdame, lockoutOnFailure: false);
+
+            if (resultado.Succeeded)
+            {
+                int idUsuario = autenticacion.GetClienteId();
+                
+                int rol = await repositorioUsuarios.ObtenerRol(idUsuario);
+
+                TempData["rol"] = rol;
+
+                return RedirectToAction("TicketsCreados", "Tickets");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Nombre de usuario o password incorrecto.");
+                return View(viewModel);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            return RedirectToAction("Login");
+        }
 
     }
 }

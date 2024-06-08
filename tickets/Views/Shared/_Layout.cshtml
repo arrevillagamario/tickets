@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Usuario> SignInManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -62,104 +64,119 @@
 
 
     <!--ESTE ES EL PANEL PARA CUANDO SE LOGUEE COMO USUARIO-->
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var rol = TempData["rol"];
 
-   <div class="bg-button text-white w-1/4 flex flex-col pt-24 space-y-7">
-        <div class="flex items-center justify-center space-x-3">
-            <p class="font-bold">Admin</p>
-            <img src="/perfil.svg" width="35px" />
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a  asp-controller="Tickets" asp-action="CrearTicket" class="font-semibold text-white">Crear ticket</a>
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="TicketsCreados" class="font-semibold text-white"> Tickets recibidos</a>
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="TicketsEnPausa"  class="font-semibold text-white">Tickets en pausa</a>
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="TicketsEnProgreso" class="font-semibold text-white">Tickets en progreso</a>
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="TicketsResueltos" class="font-semibold text-white">Tickets resueltos</a>
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Usuarios" asp-action="Index" class="font-semibold text-white">Registrar usuario</a>
-        </div>
-     </div>
+        if (rol is 1)
+        {
+            <div class="bg-button text-white w-1/4 flex flex-col pt-24 space-y-7">
+                <div class="flex items-center justify-center space-x-3">
+                    <p class="font-bold">Admin</p>
+                    <img src="/perfil.svg" width="35px" />
+                    <form class="form-inline" asp-action="logout" asp-controller="usuarios">
+                        <button type="submit" class="nav-link btn btn-link text-dark">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="CrearTicket" class="font-semibold text-white">Crear ticket</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="TicketsCreados" class="font-semibold text-white"> Tickets recibidos</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="TicketsEnPausa" class="font-semibold text-white">Tickets en pausa</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="TicketsEnProgreso" class="font-semibold text-white">Tickets en progreso</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="TicketsResueltos" class="font-semibold text-white">Tickets resueltos</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Usuarios" asp-action="Index" class="font-semibold text-white">Registrar usuario</a>
+                </div>
+            </div>
+        }else if (rol is 2)
+        {
+            <div class="bg-button text-white w-1/4 flex flex-col pt-24 space-y-7">
+                <div class="flex items-center justify-center space-x-3">
+                    <p class="font-bold">Técnico</p>
+                    <img src="/perfil.svg" width="35px" />
+                    <form class="form-inline" asp-action="logout" asp-controller="usuarios">
+                        <button type="submit" class="nav-link btn btn-link text-dark">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="CrearTicket" class="font-semibold text-white">Crear ticket</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="TicketsCreados" class="font-semibold text-white"> Tickets recibidos</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="TicketsEnPausa" class="font-semibold text-white">Tickets en pausa</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="TicketsEnProgreso" class="font-semibold text-white">Tickets en progreso</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="TicketsResueltos" class="font-semibold text-white">Tickets resueltos</a>
+                </div>
 
-
-
-
-
-
-    <!--ESTE ES EL PANEL PARA CUANDO SE LOGUEE COMO TECNICO-->
-
-
-    <!--<div class="bg-button text-white w-1/4 flex flex-col pt-24 space-y-7">
-        <div class="flex items-center justify-center space-x-3">
-            <p class="font-bold">Técnico</p>    
-            <img src="/perfil.svg" width="35px" />
+            </div>
+        }
+        else 
+        {
+            <div class="bg-button text-white w-1/4 flex flex-col pt-24 space-y-7">
+                <div class="flex items-center justify-center space-x-3">
+                    <p class="font-bold">Usuario</p>
+                    <img src="/perfil.svg" width="35px" />
+                    <form class="form-inline" asp-action="logout" asp-controller="usuarios">
+                        <button type="submit" class="nav-link btn btn-link text-dark">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="TicketsCreados" class="font-semibold text-white">Mis Tickets</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="CrearTicket" class="font-semibold text-white">Crear Tickets</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="flex-1 flex flex-col">
+            <div class="flex justify-end p-4">
+                <img src="/logo.png" alt="Alternate Text" />
+            </div>
+            <div class="flex justify-center items-center flex-1 bg-cover" style="background-image: url('/fondo.png')">
+                <main role="main" class="w-full h-full flex justify-center items-center">
+                    @RenderBody()
+                </main>
+            </div>
         </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="CrearTicket" class="font-semibold text-white">Crear ticket</a>
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="TicketsCreados" class="font-semibold text-white"> Tickets recibidos</a>
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="TicketsEnPausa" class="font-semibold text-white">Tickets en pausa</a>
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="TicketsEnProgreso" class="font-semibold text-white">Tickets en progreso</a>
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="TicketsResueltos" class="font-semibold text-white">Tickets resueltos</a>
-        </div>
-       
-    </div>-->
+    }
 
-
-
-
-    <!--ESTE ES EL PANEL PARA CUANDO SE LOGUEE COMO USUARIO-->
-
-    <!--<div class="bg-button text-white w-1/4 flex flex-col pt-24 space-y-7">
-        <div class="flex items-center justify-center space-x-3">
-            <p class="font-bold">Usuario</p>
-            <img src="/perfil.svg" width="35px" />
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="TicketsCreados" class="font-semibold text-white">Mis Tickets</a>
-        </div>
-        <div class="flex items-center">
-            <img src="/point.svg" width="40px" class="mr-5" />
-            <a asp-controller="Tickets" asp-action="CrearTicket" class="font-semibold text-white">Crear Tickets</a>
-        </div>
-    </div>-->
-
-    <div class="flex-1 flex flex-col">
-        <div class="flex justify-end p-4">
-            <img src="/logo.png" alt="Alternate Text" />
-        </div>
-        <div class="flex justify-center items-center flex-1 bg-cover" style="background-image: url('/fondo.png')">
-            <main role="main" class="w-full h-full flex justify-center items-center">
-                @RenderBody()
-            </main>
-        </div>
-    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

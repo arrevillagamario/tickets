@@ -1,0 +1,29 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="flex flex-col w-full h-full justify-center items-center">
+    <div class="w-full max-w-xs bg-custom p-8 rounded shadow-md">
+        <h2 class="text-3xl font-bold mb-6 text-center text-white">Log in</h2>
+        <form asp-action="Login" method="POST">
+            <div class="mb-4">
+                <label asp-for="Email" class="block text-gray-700 text-sm font-bold mb-2 text-white">EMAIL</label>
+                <input asp-for="Email" type="email"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Usuario">
+            </div>
+            <div class="mb-6">
+                <label asp-for="Contrasena" class="block text-gray-700 text-sm font-bold mb-2 text-white">CONTRASEÑA</label>
+                <input asp-for="Contrasena" type="password" id="contrasena" name="contrasena" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="********">
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" asp-for="Recuerdame" />
+                <label class="form-check-label" asp-for="Recuerdame"></label>
+            </div>
+            <div class="flex items-center justify-center">
+                <button type="submit" class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>

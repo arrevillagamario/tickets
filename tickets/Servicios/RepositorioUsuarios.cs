@@ -7,6 +7,7 @@ namespace tickets.Servicios
     {
         Task<Usuario?> BuscarUsuarioPorEmail(string email);
         Task<int> CrearUsuario(Usuario usuario);
+        Task<int> ObtenerRol(int id);
     }
     public class RepositorioUsuarios : IRepositorioUsuarios
     {
@@ -47,6 +48,16 @@ namespace tickets.Servicios
             var usuario = await context.Usuarios.Where(x  => x.Email == email).FirstOrDefaultAsync();
 
             return usuario;
+        }
+
+        public async Task<int> ObtenerRol(int id)
+        {
+            Usuario usuario = await context.Usuarios.Where(x => x.UsuarioId == id).FirstOrDefaultAsync();
+
+            var rol = await context.Rols.Where(x=> x.IdRol == usuario.IdRol).FirstOrDefaultAsync();
+
+            return rol.IdRol;
+
         }
     }
 }

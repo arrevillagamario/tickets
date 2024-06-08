@@ -8,6 +8,7 @@ namespace tickets.Servicios
         Task<Ticket> CrearTicket(CrearTicketViewModels ticketNuevo);
         Task<DetalleViewModel> DetalleTicket(Guid id);
         Task<IEnumerable<Ticket>> ListarTicketsCreados();
+        Task<IEnumerable<Usuario>> Tecnicos();
     }
     public class RepositorioTickets : IRepositorioTickets
     {
@@ -83,6 +84,26 @@ namespace tickets.Servicios
             var usuario = await _context.Usuarios.Where(x => x.UsuarioId == 8).FirstAsync();
 
             return usuario.Email;
+        }
+
+        public async Task<IEnumerable<Usuario>> Tecnicos()
+        {
+            var tecnicos = await _context.Usuarios.Where(x => x.IdRol == 2).ToListAsync();
+
+            return tecnicos;
+        }
+
+        public async Task<Comentario> ProgresoTicket( Comentario comentario, Guid id)
+        {
+            var comentarioNuevo = new Comentario()
+            {
+                Comentario1 = comentario.Comentario1,
+                IdUsuarioR = _autenticacion.GetClienteId(),
+                IdUsuarioD = comentario.IdUsuarioD,
+                IdTicket = id
+            };
+
+            return comentarioNuevo;
         }
     }
 

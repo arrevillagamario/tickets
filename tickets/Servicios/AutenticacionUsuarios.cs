@@ -5,7 +5,7 @@ namespace tickets.Servicios
 {
     public interface IAutenticacionUsuarios
     {
-
+        int GetClienteId();
     }
     public class AutenticacionUsuarios : IAutenticacionUsuarios
     {

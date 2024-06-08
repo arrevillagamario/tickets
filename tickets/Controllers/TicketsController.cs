@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AspNetCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using tickets.Models;
 using tickets.Servicios;
@@ -43,6 +44,14 @@ namespace tickets.Controllers
             var detalle = await _repositorioTickets.DetalleTicket(id);
 
             return PartialView("_ComentariosTicket", detalle);
+        }
+
+        public async Task<IActionResult> TicketProgreso(Guid id)
+        {
+            var bandera = id;
+            var tecnicos = await _repositorioTickets.Tecnicos();
+
+            return PartialView("_ProgresoTicket", tecnicos);
         }
 
         public ActionResult TicketsEnProgreso()
