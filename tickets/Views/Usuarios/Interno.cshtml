@@ -1,4 +1,5 @@
-﻿@{
+﻿@model RegistrarUsuarioViewModel
+@{
     ViewData["Title"] = "Usuarios Internos";
 }
 
@@ -7,33 +8,31 @@
         <h2 class="text-4xl font-bold mb-8 text-center text-white">
             Registrar Usuario Interno
         </h2>
-        <form action="#" method="POST" class="grid grid-cols-2 gap-6">
+        <form asp-action="Interno" class="grid grid-cols-2 gap-6">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
-                <label for="nombre" class="block text-gray-200 text-lg font-bold mb-2">Nombre</label>
-                <input type="text" id="nombre" name="nombre" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre" />
+                <label asp-for="NombreUsuario" class="block text-gray-200 text-lg font-bold mb-2">Nombre</label>
+                <input type="text" asp-for="NombreUsuario" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre" />
             </div>
             <div>
-                <label for="apellido" class="block text-gray-200 text-lg font-bold mb-2">Apellido</label>
-                <input type="text" id="apellido" name="apellido" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Apellido" />
+                <label asp-for="Email" class="block text-gray-200 text-lg font-bold mb-2">Email</label>
+                <input type="email" asp-for="Email" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email" />
             </div>
             <div>
-                <label for="email" class="block text-gray-200 text-lg font-bold mb-2">E-Mail</label>
-                <input type="email" id="email" name="email" class="shadow appearance-none border text-sm rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="E-mail" />
+                <label asp-for="Contrasena" class="block text-gray-200 text-lg font-bold mb-2">Contraseña</label>
+                <input type="password" asp-for="Contrasena" class="shadow appearance-none border text-sm rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Contraseña" />
             </div>
             <div>
-                <label for="username" class="block text-gray-200 text-lg font-bold mb-2">Username</label>
-                <input type="text" id="username" name="username" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Username" />
+                <label asp-for="Telefono" class="block text-gray-200 text-lg font-bold mb-2">Teléfono</label>
+                <input type="tel" asp-for="Telefono" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Teléfono" />
             </div>
             <div>
-                <label for="contrasena" class="block text-gray-200 text-lg font-bold mb-2">Contraseña</label>
-                <input type="password" id="contrasena" name="contrasena" class="shadow appearance-none text-sm border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="********" />
-            </div>
-            <div>
-                <label for="rol" class="block text-gray-200 text-lg font-bold mb-2">Rol</label>
-                <select id="rol" name="rol" class="shadow appearance-none border rounded w-full py-3 px-4 text-sm text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="">Seleccione un rol</option>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
+                <label asp-for="IdRol" class="block text-gray-200 text-lg font-bold mb-2">Rol</label>
+                <select asp-for="IdRol" class="shadow appearance-none border rounded w-full py-3 px-4 text-sm text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option value="0">Seleccione un rol</option>
+                    <option value="1">Admin</option>
+                    <option value="2">Técnico</option>
+                    <option value="3">Cliente</option>
                 </select>
             </div>
             <div class="col-span-2 flex items-center justify-center mt-6">

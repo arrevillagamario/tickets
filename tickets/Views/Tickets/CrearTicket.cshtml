@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CrearTicketViewModels
+@{
     ViewData["Title"] = "Crear Ticket";
 }
 <div class="flex flex-col w-full h-full justify-center items-center">
@@ -6,20 +7,19 @@
         Crear Ticket
     </h1>
     <div class="bg-custom p-8 rounded-lg shadow-lg w-full max-w-3xl">
-        <form>
+        <form asp-action="CrearTicket">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label class="block text-white text-sm font-bold mb-2"
-                           for="service-name">NOMBRE DEL SERVICIO</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                           id="service-name"
+                           asp-for="Servicio">NOMBRE DEL SERVICIO</label>
+                    <input asp-for="Servicio" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                            type="text" />
                 </div>
                 <div>
                     <label class="block text-white text-sm font-bold mb-2"
-                           for="problem-description">DESCRIPCIÓN DEL PROBLEMA</label>
-                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                              id="problem-description"
+                           asp-for="DescripcionProblema">DESCRIPCIÓN DEL PROBLEMA</label>
+                    <textarea asp-for="DescripcionProblema" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                               rows="4"></textarea>
                 </div>
                 <div class="flex flex-col items-center">
@@ -38,10 +38,8 @@
                     </label>
                 </div>
                 <div>
-                    <label class="block text-white text-sm font-bold mb-2"
-                           for="priority">PRIORIDAD</label>
-                    <select class="shadow appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="priority">
+                    <label asp-for="Prioridad" class="block text-white text-sm font-bold mb-2">PRIORIDAD</label>
+                    <select asp-for="Prioridad" class="shadow appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         <option>Baja</option>
                         <option>Media</option>
                         <option>Alta</option>
@@ -50,7 +48,7 @@
             </div>
             <div class="flex items-center justify-center mt-6">
                 <button class="bg-teal-700 hover:bg-teal-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="button">
+                        type="submit">
                     Crear
                 </button>
             </div>
