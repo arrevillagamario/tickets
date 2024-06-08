@@ -140,7 +140,7 @@
 
             </div>
         }
-        else 
+        else if(rol is 3)
         {
             <div class="bg-button text-white w-1/4 flex flex-col pt-24 space-y-7">
                 <div class="flex items-center justify-center space-x-3">
@@ -163,19 +163,22 @@
             </div>
         }
     }
-    else
-    {
-        <div class="flex-1 flex flex-col">
-            <div class="flex justify-end p-4">
-                <img src="/logo.png" alt="Alternate Text" />
-            </div>
-            <div class="flex justify-center items-center flex-1 bg-cover" style="background-image: url('/fondo.png')">
-                <main role="main" class="w-full h-full flex justify-center items-center">
-                    @RenderBody()
-                </main>
-            </div>
+
+
+    <div class="flex-1 flex flex-col">
+        <div class="flex justify-end p-4">
+            <img src="/logo.png" alt="Alternate Text" />
         </div>
-    }
+        <div class="flex justify-center items-center flex-1 bg-cover" style="background-image: url('/fondo.png')">
+            <main role="main" class="w-full h-full flex justify-center items-center">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    
+    
+        
+ 
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

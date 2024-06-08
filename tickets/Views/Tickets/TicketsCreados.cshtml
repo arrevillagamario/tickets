@@ -13,7 +13,6 @@
 
         @foreach( var item in Model)
         {
-            var id = item.IdTicket;
             <div class="bg-white shadow-lg rounded-lg p-6 flex justify-between items-center">
                 <div class="flex-1">
                     <p class="text-sm font-semibold text-teal-700 mb-2">
@@ -24,12 +23,12 @@
                     <p class="text-sm text-gray-600">Prioridad: @item.Prioridad</p>
                 </div>
                 <div class="flex space-x-4">
-                    <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg" onclick="openModalDetalle('@item.IdTicket')">
-                        Descripción Del Ticket
-                    </button>
-                    <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg" onclick="openModalProgreso('id')">
-                        Ver Progreso
-                    </button>
+                        <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg" onclick="openModalDetalle('@item.IdTicket')">
+                            Descripción Del Ticket
+                        </button>
+                        <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg" onclick="openModalProgreso('@item.IdTicket')">
+                            Ver Progreso
+                        </button>
                 </div>
             </div>
         }

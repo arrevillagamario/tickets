@@ -1,5 +1,4 @@
-﻿using AspNetCore;
-using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using tickets.Models;
 using tickets.Servicios;
@@ -48,10 +47,16 @@ namespace tickets.Controllers
 
         public async Task<IActionResult> TicketProgreso(Guid id)
         {
-            var bandera = id;
-            var tecnicos = await _repositorioTickets.Tecnicos();
+            var tecnicos =  await _repositorioTickets.ProgresoTicket(id);
 
             return PartialView("_ProgresoTicket", tecnicos);
+        }
+
+        public async Task<IActionResult> ResolverTicket(Guid id)
+        {
+            await _repositorioTickets.FinalizarTicket(id);
+
+            return RedirectToAction("TicketsResueltos");
         }
 
         public ActionResult TicketsEnProgreso()
@@ -62,9 +67,10 @@ namespace tickets.Controllers
         {
             return View();
         }
-        public ActionResult TicketsResueltos()
+        public async Task<IActionResult> TicketsResueltos()
         {
-            return View();
+            var tickets = await _repositorioTickets.ListarTicketsResueltos();
+            return View(tickets);
         }
 
 
