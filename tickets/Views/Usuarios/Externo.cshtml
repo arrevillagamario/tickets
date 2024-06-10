@@ -1,51 +1,37 @@
-﻿@{
+﻿@model RegistrarUsuarioViewModel
+@{
     ViewData["Title"] = "Usuarios Externos";
 }
 
 <div class="flex justify-center items-center w-full h-full">
     <div class="w-full max-w-4xl bg-custom p-8 rounded shadow-md">
         <h2 class="text-3xl font-bold mb-6 text-center text-white">Registrar Usuario Externo</h2>
-        <form action="#" method="POST" class="grid grid-cols-2 gap-4">
+        <form asp-action="Externo" method="POST" class="grid grid-cols-2 gap-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div>
-                <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2 text-white">Nombre</label>
-                <input type="text" id="nombre" name="nombre" class="shadow text-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre">
+                <label asp-for="NombreUsuario" class="block text-gray-700 text-sm font-bold mb-2 text-white">Nombre</label>
+                <input asp-for="NombreUsuario" type="text" class="shadow text-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre">
+                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
             </div>
             <div>
-                <label for="apellido" class="block text-gray-700 text-sm font-bold mb-2 text-white">Apellido</label>
-                <input type="text" id="apellido" name="apellido" class="shadow text-sm  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Apellido">
+                <label asp-for="Email" class="block text-gray-700 text-sm font-bold mb-2 text-white">Email</label>
+                <input asp-for="Email" type="email" class="shadow text-sm  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div>
-                <label for="email" class="block text-gray-700 text-sm font-bold mb-2 text-white">E-Mail</label>
-                <input type="email" id="email" name="email" class="shadow text-sm  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="E-mail">
+                <label asp-for="Contrasena" class="block text-gray-700 text-sm font-bold mb-2 text-white">Contraseña</label>
+                <input asp-for="Contrasena" type="password"  class="shadow text-sm  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Contraseña">
+                <span asp-validation-for="Contrasena" class="text-danger"></span>
             </div>
             <div>
-                <label for="username" class="block text-gray-700 text-sm font-bold mb-2 text-white">User Name</label>
-                <input type="text" id="username" name="username" class="shadow text-sm  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="User Name">
+                <label asp-for="Telefono" class="block text-gray-700 text-sm font-bold mb-2 text-white">Telefono</label>
+                <input asp-for="Telefono" type="teléfono" class="shadow text-sm  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Teléfono">
+                <span asp-validation-for="Telefono"></span>
             </div>
             <div>
-                <label for="contrasena" class="block text-gray-700 text-sm font-bold mb-2 text-white">Contraseña</label>
-                <input type="password" id="contrasena" name="contrasena" class="shadow text-sm  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="********">
-            </div>
-            <div>
-                <label for="rol" class="block text-gray-700 text-sm font-bold mb-2 text-white">Rol</label>
-                <select id="rol" name="rol" class="shadow appearance-none border rounded text-sm  w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="">Seleccione un rol</option>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                    <option value="tecnico">Técnico</option>
-                </select>
-            </div>
-            <div>
-                <label for="empresa" class="block text-gray-700 text-sm font-bold mb-2 text-white">Nombre de La Empresa</label>
-                <input type="text" id="empresa" name="empresa" class="shadow appearance-none text-sm  border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre de La Empresa">
-            </div>
-            <div>
-                <label for="contacto_principal" class="block text-gray-700 text-sm font-bold mb-2 text-white">Nombre del Contacto</label>
-                <input type="text" id="contacto_principal" name="contacto_principal" class="shadow text-sm  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Nombre Contacto Principal">
-            </div>
-            <div>
-                <label for="contacto" class="block text-gray-700 text-sm font-bold mb-2 text-white">Contacto</label>
-                <input type="text" id="contacto" name="contacto" class="shadow appearance-none border text-sm  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Contacto">
+                <label asp-for="Empresa" class="block text-gray-700 text-sm font-bold mb-2 text-white">Empresa</label>
+                <input asp-for="Empresa" type="text"  class="shadow text-sm  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Empresa">
+                <span asp-validation-for="Empresa"></span>
             </div>
             <div class="col-span-2 flex items-center justify-center">
                 <button type="submit" class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 text-sm  rounded focus:outline-none focus:shadow-outline">

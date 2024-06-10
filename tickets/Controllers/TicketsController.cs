@@ -8,10 +8,14 @@ namespace tickets.Controllers
     public class TicketsController : Controller
     {
         private readonly IRepositorioTickets _repositorioTickets;
+        private readonly IAutenticacionUsuarios _autenticacion;
+        private readonly IRepositorioUsuarios _repositorioUsuarios;
 
-        public TicketsController(IRepositorioTickets repositorioTickets)
+        public TicketsController(IRepositorioTickets repositorioTickets, IAutenticacionUsuarios autenticacion, IRepositorioUsuarios repositorioUsuarios)
         {
             _repositorioTickets = repositorioTickets;
+            _autenticacion = autenticacion;
+            _repositorioUsuarios = repositorioUsuarios;
         }
 
         // GET: TicketsController
@@ -34,7 +38,18 @@ namespace tickets.Controllers
 
         public async Task<IActionResult> TicketsCreados()
         {
-            var ticketsCreados = await _repositorioTickets.ListarTicketsCreados();
+            //int usuarioEnSession = autenticacion.GetClienteId();
+            //int rolEnSession =  await repositorioUsuarios.ObtenerRol(usuarioEnSession);
+
+            //IEnumerable<Ticket> ticketsCreados = new List<Ticket>();
+
+            //if(rolEnSession == 1)
+            //{
+              var  ticketsCreados = await _repositorioTickets.ListarTicketsCreados();
+            //}
+
+
+            
             return View(ticketsCreados);
         }
 
@@ -59,18 +74,31 @@ namespace tickets.Controllers
             return RedirectToAction("TicketsResueltos");
         }
 
-        public ActionResult TicketsEnProgreso()
+        public async Task<IActionResult> TicketsEnProgreso()
         {
-            return View();
+            var tickets = await _repositorioTickets.ListarTicketsAsignados();
+
+            return View(tickets);
         }
         public ActionResult TicketsEnPausa()
         {
             return View();
         }
+
         public async Task<IActionResult> TicketsResueltos()
         {
             var tickets = await _repositorioTickets.ListarTicketsResueltos();
             return View(tickets);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AsignarTicket(Guid id, int usuarioSeleccionado, string comment)
+        {
+            
+
+            await _repositorioTickets.AsignarTicket(id, usuarioSeleccionado, comment);
+
+            return  this.RedirectToAction("TicketsEnProgreso");
         }
 
 

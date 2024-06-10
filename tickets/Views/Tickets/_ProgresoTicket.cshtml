@@ -17,8 +17,8 @@
     Progreso del Ticket
 </h2>
 <div class="flex justify-center space-x-4 mb-8">
-    <form>
-        <input type="hidden" value="@Model.idTicket"/> 
+    <form method="post">
+        <input type="hidden" value="@Model.idTicket" name="id"/> 
         <button asp-action="ResolverTicket" class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Finalizar Ticket
         </button>
@@ -27,14 +27,14 @@
         Pausar Ticket
     </button>
 </div>
-<form>
+<form method="post">
     <div class="mb-6">
         <label class="block text-teal-700 text-sm font-bold mb-2"
                asp-for="Usuarios">ASIGNAR ACTIVIDAD DEL TICKET</label>
-        <select class="shadow appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        <select name="usuarioSeleccionado" class="shadow appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             @foreach(var item in Model.Usuarios)
             {
-                <option value="@item.UsuarioId">@item.NombreUsuario</option>
+                <option value="@item.UsuarioId" name="usuarioId">@item.NombreUsuario</option>
             }
         </select>
     </div>
@@ -42,12 +42,13 @@
         <label class="block text-teal-700 text-sm font-bold mb-2"
                asp-for="Comentario">DETALLE DE ACTIVIDAD</label>
         <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  asp-for="Comentario"
-                  rows="4"></textarea>
+                  name="comment"
+                  rows="4">
+        </textarea>
     </div>
+    <input type="hidden" value="@Model.idTicket" name="id" />
     <div class="flex items-center justify-center">
-        <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button">
+        <button asp-action="AsignarTicket" class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             Actualizar Ticket
         </button>
     </div>

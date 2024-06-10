@@ -1,13 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SendGrid.Helpers.Mail;
 using tickets.Models;
 
 namespace tickets.Servicios
 {
     public interface IRepositorioTickets
     {
+        Task AsignarTicket(Guid idTicket, int idAsignado, string comentario);
         Task<Ticket> CrearTicket(CrearTicketViewModels ticketNuevo);
         Task<DetalleViewModel> DetalleTicket(Guid id);
         Task<Guid> FinalizarTicket(Guid id);
+        Task<IEnumerable<Ticket>> ListarTicketsAsignados();
         Task<IEnumerable<Ticket>> ListarTicketsCreados();
         Task<IEnumerable<Ticket>> ListarTicketsResueltos();
         Task<ProgresoViewModel> ProgresoTicket(Guid id);
@@ -18,17 +21,22 @@ namespace tickets.Servicios
         private readonly TicketsContext _context;
         private readonly IAutenticacionUsuarios _autenticacion;
         private readonly IServicioEmail _servicioEmail;
+        private readonly IRepositorioUsuarios repositorioUsuarios;
 
-        public RepositorioTickets(TicketsContext context, IAutenticacionUsuarios autenticacion, IServicioEmail servicioEmail)
+        public RepositorioTickets(TicketsContext context, IAutenticacionUsuarios autenticacion, IServicioEmail servicioEmail, IRepositorioUsuarios repositorioUsuarios)
         {
             _context = context;
             _autenticacion = autenticacion;
             _servicioEmail = servicioEmail;
+            this.repositorioUsuarios = repositorioUsuarios;
         }
 
         public async Task<Ticket> CrearTicket(CrearTicketViewModels ticketNuevo)
         {
             DateOnly hoy = DateOnly.FromDateTime(dateTime: DateTime.Now);
+
+            var usuarioEnSession = _autenticacion.GetClienteId();
+
 
             var ticket = new Ticket()
             {
@@ -36,9 +44,9 @@ namespace tickets.Servicios
                 DescripcionProblema = ticketNuevo.DescripcionProblema,
                 Fecha = hoy,
                 Prioridad = ticketNuevo.Prioridad,
-                IdUsuarioSolicitante = 1,
+                IdUsuarioSolicitante = usuarioEnSession,
                 FechaFinalizacion = ticketNuevo.FechaFinalizacion,
-                IdUsuarioAsignado = 2,
+                IdUsuarioAsignado = null,
                 Estado = 1
             };
 
@@ -53,13 +61,65 @@ namespace tickets.Servicios
         }
 
 
+
+
         public async Task<IEnumerable<Ticket>> ListarTicketsCreados()
         {
-            var Tickets = await _context.Tickets.Where(x => x.Estado == 1).OrderByDescending(x => x.Fecha)
+            int cliente = _autenticacion.GetClienteId();
+
+            int rol = await repositorioUsuarios.ObtenerRol(cliente);
+
+            var tickets = new List<Ticket>();   
+
+            if(rol == 1)
+            {
+                 tickets = await _context.Tickets.Where(x => x.Estado == 1 && x.IdUsuarioAsignado == null).OrderByDescending(x => x.Fecha)
+                                .ToListAsync();
+            }
+            else
+            {
+                tickets = await _context.Tickets.Where( x => x.Estado == 1 && x.IdUsuarioAsignado == cliente || x.IdUsuarioSolicitante == cliente).ToListAsync();
+            }
+
+            return tickets;
+        }
+
+
+        public async Task<IEnumerable<Ticket>> ListarTicketsAsignados()
+        {
+            int cliente = _autenticacion.GetClienteId();
+
+            int rol = await repositorioUsuarios.ObtenerRol(cliente);
+
+            var tickets = new List<Ticket>();
+
+            if (rol == 1)
+            {
+                tickets = await _context.Tickets.Where(x => x.Estado == 3).OrderByDescending(x => x.Fecha)
+                               .ToListAsync();
+            }
+            else if(rol == 2)
+            {
+                tickets = await _context.Tickets.Where(x => x.Estado == 3 && x.IdUsuarioAsignado == cliente).OrderByDescending(x => x.Fecha)
+                               .ToListAsync();
+            }
+            else
+            {
+                tickets = await _context.Tickets.Where(x => x.Estado == 3 && x.IdUsuarioSolicitante == cliente).OrderByDescending(x => x.Fecha)
+                    .ToListAsync();
+            }
+
+            return tickets;
+        }
+
+        public async Task<IEnumerable<Ticket>> ListarHistorialTickets()
+        {
+            var Tickets = await _context.Tickets.OrderByDescending(x => x.Fecha)
                                 .ToListAsync();
 
             return Tickets;
         }
+
 
         public async Task<DetalleViewModel> DetalleTicket( Guid id)
         {
@@ -85,7 +145,8 @@ namespace tickets.Servicios
         }
         public async Task<string> CorreoUsuario()
         {
-            var usuario = await _context.Usuarios.Where(x => x.UsuarioId == 8).FirstAsync();
+            int UsuarioEnSession = _autenticacion.GetClienteId();
+            var usuario = await _context.Usuarios.Where(x => x.UsuarioId == UsuarioEnSession).FirstAsync();
 
             return usuario.Email;
         }
@@ -100,7 +161,7 @@ namespace tickets.Servicios
         public async Task<ProgresoViewModel> ProgresoTicket(Guid id)
         {
 
-            var usuarios = await _context.Usuarios.ToListAsync();
+            var usuarios = await Tecnicos();
             var progreso = new ProgresoViewModel()
             {
                 idTicket = id,
@@ -113,9 +174,17 @@ namespace tickets.Servicios
 
         public async Task<Guid> FinalizarTicket(Guid id)
         {
+            DateOnly hoy = DateOnly.FromDateTime(dateTime: DateTime.Now);
             var ticket = await _context.Tickets.Where(x => x.IdTicket == id).FirstOrDefaultAsync();
 
             ticket.Estado = 4;
+            ticket.FechaFinalizacion = hoy;
+
+            string email = await ObtenerEmailTicket(id); 
+
+            _context.Update(ticket);
+            await _context.SaveChangesAsync();
+            await _servicioEmail.EnviarFinalizaciónTicket(ticket.IdTicket, email);
 
             return ticket.IdTicket;
         }
@@ -124,11 +193,94 @@ namespace tickets.Servicios
         {
             var cliente = _autenticacion.GetClienteId();
 
-            var tickets = await _context.Tickets.Where(x => x.Estado == 4 && x.IdUsuarioSolicitante == cliente || x.IdUsuarioAsignado == cliente).ToListAsync();
+            var usuario = await _context.Usuarios.Where(x => x.UsuarioId == cliente).FirstOrDefaultAsync();
 
-            return tickets;
+            List<Ticket> result = new List<Ticket>();
+
+            if(usuario.IdRol == 1)
+            {
+                 result = await _context.Tickets.Where(x => x.Estado == 4).ToListAsync();
+            }
+            else
+            {
+                 result = await _context.Tickets.Where(x => x.Estado == 4).Where(x => x.IdUsuarioAsignado == cliente || x.IdUsuarioSolicitante == cliente).ToListAsync();
+            }
+
+            return result;
         }
+
+        public async Task<string> ObtenerEmailTicket(Guid id)
+        {
+            var ticket = await _context.Tickets.Where(x => x.IdTicket == id).FirstOrDefaultAsync();
+            var idCliente = ticket.IdUsuarioSolicitante;
+
+            var cliente = await _context.Usuarios.Where(x => x.UsuarioId ==idCliente).FirstOrDefaultAsync();
+
+            string correo = cliente.Email;
+
+            return correo;
+
+        }
+
+
+        public async Task AsignarTicket(Guid idTicket, int idAsignado, string comentario)
+        {
+            int asignante = _autenticacion.GetClienteId();
+            var ticket = await _context.Tickets.Where(x => x.IdTicket == idTicket).FirstOrDefaultAsync();
+
+            ticket.Estado = 3;
+            ticket.IdUsuarioAsignado = idAsignado;
+
+            var comentarioHecho = new Comentario()
+            {
+                Comentario1 = comentario,
+                IdUsuarioR = asignante,
+                IdUsuarioD = idAsignado
+            };
+
+            _context.Update(ticket);
+            _context.Add(comentarioHecho);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<Ticket>> ListarTicketsPausados()
+        {
+            var cliente = _autenticacion.GetClienteId();
+
+            var usuario = await _context.Usuarios.Where(x => x.UsuarioId == cliente).FirstOrDefaultAsync();
+
+            List<Ticket> result = new List<Ticket>();
+
+            if (usuario.IdRol == 1)
+            {
+                result = await _context.Tickets.Where(x => x.Estado == 2).ToListAsync();
+            }
+            else
+            {
+                result = await _context.Tickets.Where(x => x.Estado == 2).Where(x => x.IdUsuarioAsignado == cliente || x.IdUsuarioSolicitante == cliente).ToListAsync();
+            }
+
+            return result;
+        }
+
+        public async Task PausarTicket(Guid idTicket)
+        {
+            int asignante = _autenticacion.GetClienteId();
+            var ticket = await _context.Tickets.Where(x => x.IdTicket == idTicket).FirstOrDefaultAsync();
+
+            ticket.Estado = 2;
+
+           
+
+            _context.Update(ticket);
+            await _context.SaveChangesAsync();
+        }
+
+
     }
 
-   
+
+    
+
+
 }

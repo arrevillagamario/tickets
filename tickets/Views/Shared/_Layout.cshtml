@@ -66,7 +66,7 @@
     <!--ESTE ES EL PANEL PARA CUANDO SE LOGUEE COMO USUARIO-->
     @if (SignInManager.IsSignedIn(User))
     {
-        var rol = TempData["rol"];
+        int? rol = Context.Session.GetInt32("rol");
 
         if (rol is 1)
         {
@@ -159,6 +159,10 @@
                 <div class="flex items-center">
                     <img src="/point.svg" width="40px" class="mr-5" />
                     <a asp-controller="Tickets" asp-action="CrearTicket" class="font-semibold text-white">Crear Tickets</a>
+                </div>
+                <div class="flex items-center">
+                    <img src="/point.svg" width="40px" class="mr-5" />
+                    <a asp-controller="Tickets" asp-action="TicketsResueltos" class="font-semibold text-white">Tickets resueltos</a>
                 </div>
             </div>
         }

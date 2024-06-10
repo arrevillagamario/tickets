@@ -27,7 +27,10 @@ namespace tickets.Servicios
             }
             else
             {
+                return 0;
                 throw new ApplicationException("El usuario no está autenticado");
+
+                
             }
         }
     }

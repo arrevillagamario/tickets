@@ -4,12 +4,12 @@ namespace tickets.Models
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Es necesario ingresar un email válido")]
-        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        [EmailAddress(ErrorMessage = "El campo debe ser un correo electrónico válido")]
         public string Email { get; set; } = null!;
 
 
-        [Required(ErrorMessage = "Tiene que crear una {0}")]
+        [Required(ErrorMessage = "El campo {0} es requerido")]
         [DataType(DataType.Password)]
         public string Contrasena { get; set; } = null!;
 

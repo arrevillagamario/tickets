@@ -5,6 +5,8 @@
         public Guid idTicket { get; set; }
         public IEnumerable<Usuario>? Usuarios { get; set; }
 
+        public int usuarioSeleccionado { get; set; }
+
         public Comentario? Comentario { get; set; }
     }
 }

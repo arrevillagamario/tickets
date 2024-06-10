@@ -12,6 +12,6 @@
 
         public string? Empresa { get; set; }
 
-        public int IdRol { get; set; }
+        public int? IdRol { get; set; }
     }
 }

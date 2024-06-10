@@ -10,28 +10,74 @@
     </div>
     <div class="space-y-6">
         <!-- Ticket Card -->
+        @{
+            var rol = Context.Session.GetInt32("rol");
+            var estado = "";
 
-        @foreach( var item in Model)
-        {
-            <div class="bg-white shadow-lg rounded-lg p-6 flex justify-between items-center">
-                <div class="flex-1">
-                    <p class="text-sm font-semibold text-teal-700 mb-2">
-                        Fecha de Creación: @item.Fecha
-                    </p>
-                    <h2 class="text-xl font-bold text-teal-700">Ticket: @item.IdTicket</h2>
-                    <p class="text-sm text-gray-600 mt-2">Serivicio: @item.Servicio</p>
-                    <p class="text-sm text-gray-600">Prioridad: @item.Prioridad</p>
-                </div>
-                <div class="flex space-x-4">
-                        <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg" onclick="openModalDetalle('@item.IdTicket')">
-                            Descripción Del Ticket
-                        </button>
-                        <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg" onclick="openModalProgreso('@item.IdTicket')">
-                            Ver Progreso
-                        </button>
-                </div>
-            </div>
+            if(rol == 1 || rol == 2)
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="bg-white shadow-lg rounded-lg p-6 flex justify-between items-center">
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold text-teal-700 mb-2">
+                                Fecha de Creación: @item.Fecha
+                            </p>
+                            <h2 class="text-xl font-bold text-teal-700">Ticket: @item.IdTicket</h2>
+                            <p class="text-sm text-gray-600 mt-2">Serivicio: @item.Servicio</p>
+                            <p class="text-sm text-gray-600">Prioridad: @item.Prioridad</p>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg" onclick="openModalDetalle('@item.IdTicket')">
+                                Descripción Del Ticket
+                            </button>
+                            <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg" onclick="openModalProgreso('@item.IdTicket')">
+                                Ver Progreso
+                            </button>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="bg-white shadow-lg rounded-lg p-6 flex justify-between items-center">
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold text-teal-700 mb-2">
+                                Fecha de Creación: @item.Fecha
+                            </p>
+                            <h2 class="text-xl font-bold text-teal-700">Ticket: @item.IdTicket</h2>
+                            <p class="text-sm text-gray-600 mt-2">Serivicio: @item.Servicio</p>
+                            <p class="text-sm text-gray-600">Prioridad: @item.Prioridad</p>
+                            <p class ="text-sm text-gray-600">Estado: @{
+                                    if(item.Estado == 1)
+                                    {
+                                        estado = "Creado";
+                                    }else if(item.Estado == 2)
+                                    {
+                                        estado = "En Pausa";
+                                    }else if(item.Estado == 3)
+                                    {
+                                        estado = "En proceso de Resolución";
+                                    }
+                                    else
+                                    {
+                                        estado = "Resuelto";
+                                    }
+                                } @estado</p>
+                        </div>
+                        <div class="flex space-x-4">
+                            <button class="bg-teal-500 text-white  text-sm font-bold px-4 py-2 rounded-lg" onclick="openModalDetalle('@item.IdTicket')">
+                                Descripción Del Ticket
+                            </button>
+                        </div>
+                    </div>
+                }
+                
+            }
         }
+       
     </div>
 </div>
 <div id="modalDetalle"

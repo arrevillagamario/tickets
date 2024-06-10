@@ -44,7 +44,7 @@ namespace tickets.Controllers
                  NombreUsuario = viewModel.NombreUsuario,
                  Email = viewModel.Email,
                  Telefono = viewModel.Telefono,
-                 IdRol = viewModel.IdRol,
+                 IdRol = (int)viewModel.IdRol,
             };
 
             var resultado = await _userManager.CreateAsync(usuario, password: viewModel.Contrasena);
@@ -53,7 +53,8 @@ namespace tickets.Controllers
             {
 
                 await _signIn.SignInAsync(usuario, isPersistent: true);
-                return RedirectToAction("Index", "TicketsCreados");
+
+                return RedirectToAction("TicketsCreados", "Tickets");
             }
             else
             {
@@ -61,6 +62,47 @@ namespace tickets.Controllers
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Externo(RegistrarUsuarioViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(viewModel);
+            }
+
+            var usuario = new Usuario()
+            {
+                NombreUsuario = viewModel.NombreUsuario,
+                Email = viewModel.Email,
+                Telefono = viewModel.Telefono,
+                Empresa = viewModel.Empresa,
+                IdRol = 3
+            };
+
+            var resultado = await _userManager.CreateAsync(usuario, password: viewModel.Contrasena);
+
+            var admin = autenticacion.GetClienteId();
+
+            if (resultado.Succeeded && admin != 0)
+            {
+                int idUsuario = autenticacion.GetClienteId();
+                int rol = await repositorioUsuarios.ObtenerRol(idUsuario);
+                HttpContext.Session.SetInt32("rol", rol);
+
+                return RedirectToAction("Index", "TicketsCreados");
+            }
+            else if(resultado.Succeeded && admin == 0)
+            {
+                await _signIn.SignInAsync(usuario, isPersistent: true);
+            }
+            foreach (var error in resultado.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
             }
 
             return View(viewModel);
@@ -93,7 +135,8 @@ namespace tickets.Controllers
                 
                 int rol = await repositorioUsuarios.ObtenerRol(idUsuario);
 
-                TempData["rol"] = rol;
+                HttpContext.Session.SetInt32("rol", rol);
+
 
                 return RedirectToAction("TicketsCreados", "Tickets");
             }
