@@ -18,21 +18,20 @@
 <h2 class="text-4xl font-bold text-teal-700 text-center mb-8">
     Detalle del Ticket
 </h2>
-<form>
     <div class="grid grid-cols-2 gap-4 mb-4">
         <div>
-            <label class="block text-teal-700 text-sm font-bold mb-2"
-                   asp-for="Descripcion">DETALLE DEL PROBLEMA</label>
-            <textarea contenteditable="false" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
-                      asp-for="Descripcion"
-                      rows="6"></textarea>
+        <label class="block text-teal-700 text-sm font-bold mb-2"
+                  >DETALLE DEL PROBLEMA</label>
+            <textarea contenteditable="false" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" rows="6"
+            >@Model.Descripcion
+            </textarea>
         </div>
         <div>
             <label class="block text-teal-700 text-sm font-bold mb-2"
-                   asp-for="comentarios">DETALLE DE ACTIVIDAD</label>
-            <textarea contenteditable="false" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
-                      asp-for="comentarios"
-                      rows="6"></textarea>
+                  >DETALLE DE ACTIVIDAD</label>
+            <textarea contenteditable="false" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"rows="6">
+                @Model.comentarios
+            </textarea>
         </div>
     </div>
     <div class="mb-4">
@@ -63,56 +62,3 @@
             Contactar al Cliente
         </button>
     </div>
-</form>
-
-
-<!--<button class="close-button absolute top-2 right-2 text-teal-600"
-        onclick="closeModalProgreso()">
-    <svg xmlns="http://www.w3.org/2000/svg"
-         width="40"
-         height="40"
-         viewBox="0 0 24 24">
-        <path fill="#1D9E9A"
-              fill-rule="evenodd"
-              d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10M8.97 8.97a.75.75 0 0 1 1.06 0L12 10.94l1.97-1.97a.75.75 0 0 1 1.06 1.06L13.06 12l1.97 1.97a.75.75 0 0 1-1.06 1.06L12 13.06l-1.97 1.97a.75.75 0 0 1-1.06-1.06L10.94 12l-1.97-1.97a.75.75 0 0 1 0-1.06"
-              clip-rule="evenodd" />
-    </svg>
-</button>
-<h2 class="text-4xl font-bold text-teal-700 text-center mb-8">
-    Progreso del Ticket
-</h2>
-<div class="flex justify-center space-x-4 mb-8">
-    <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-        Finalizar Ticket
-    </button>
-    <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-        Pausar Ticket
-    </button>
-</div>
-<form>
-    <div class="mb-6">
-        <label class="block text-teal-700 text-sm font-bold mb-2"
-               >ASIGNAR ACTIVIDAD DEL TICKET</label>
-        <select class="shadow appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="usuario">
-            @foreach(var item in Model.usuarios)
-            {
-                <option>@item.NombreUsuario</option>
-            }
-        </select>
-    </div>
-    <div class="mb-6">
-        <label class="block text-teal-700 text-sm font-bold mb-2"
-               asp-for="comentarios">DETALLE DE ACTIVIDAD</label>
-        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  asp-for="comentarios"
-                  rows="4"></textarea>
-    </div>
-    <div class="flex items-center justify-center">
-        <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button">
-            Actualizar Ticket
-        </button>
-    </div>
-</form>
--->

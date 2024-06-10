@@ -80,9 +80,10 @@ namespace tickets.Controllers
 
             return View(tickets);
         }
-        public ActionResult TicketsEnPausa()
+        public async Task<IActionResult> TicketsEnPausa()
         {
-            return View();
+            var tickets = await _repositorioTickets.ListarTicketsPausados();
+            return View(tickets);
         }
 
         public async Task<IActionResult> TicketsResueltos()

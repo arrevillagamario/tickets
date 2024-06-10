@@ -12,7 +12,9 @@ namespace tickets.Servicios
         Task<Guid> FinalizarTicket(Guid id);
         Task<IEnumerable<Ticket>> ListarTicketsAsignados();
         Task<IEnumerable<Ticket>> ListarTicketsCreados();
+        Task<IEnumerable<Ticket>> ListarTicketsPausados();
         Task<IEnumerable<Ticket>> ListarTicketsResueltos();
+        Task PausarTicket(Guid idTicket);
         Task<ProgresoViewModel> ProgresoTicket(Guid id);
         Task<IEnumerable<Usuario>> Tecnicos();
     }
@@ -95,12 +97,12 @@ namespace tickets.Servicios
 
             if (rol == 1)
             {
-                tickets = await _context.Tickets.Where(x => x.Estado == 3).OrderByDescending(x => x.Fecha)
+                tickets = await _context.Tickets.Include(x => x.IdUsuarioAsignadoNavigation).Where(x => x.Estado == 3).OrderByDescending(x => x.Fecha)
                                .ToListAsync();
             }
             else if(rol == 2)
             {
-                tickets = await _context.Tickets.Where(x => x.Estado == 3 && x.IdUsuarioAsignado == cliente).OrderByDescending(x => x.Fecha)
+                tickets = await _context.Tickets.Include(x => x.IdUsuarioAsignadoNavigation).Where(x => x.Estado == 3 && x.IdUsuarioAsignado == cliente).OrderByDescending(x => x.Fecha)
                                .ToListAsync();
             }
             else
@@ -127,16 +129,26 @@ namespace tickets.Servicios
                                                 .Where(x => x.IdTicket == id)
                                                 .FirstAsync();
 
-            var detalleTicket = await _context.Comentarios.Where(x => x.IdTicket == id).OrderByDescending(x => x.IdComentario).FirstOrDefaultAsync();
+            var detalleTicket = await _context.Comentarios.Where(x => x.IdTicket == id && x.IdUsuarioD == ticket.IdUsuarioAsignado).OrderByDescending(x => x.IdComentario).FirstOrDefaultAsync();
             //.OrderByDescending(x => x.IdUsuarioD == usaurioSession)
 
 
-            var usuarios = await _context.Usuarios.Where(x => x.IdRol == 2).ToListAsync();
+            var usuarios = await Tecnicos();
+            string comment;
+            if (detalleTicket != null)
+            {
+                 comment = detalleTicket.Comentario1;
+            }
+            else
+            {
+                comment = "--No tiene actividad asignada--";
+
+            }
 
             var descripcion = new DetalleViewModel()
             {
                 idTicket = id,
-                comentarios = detalleTicket,
+                comentarios = comment,
                 Descripcion = ticket.DescripcionProblema,
                 usuarios = usuarios
             };
@@ -222,6 +234,18 @@ namespace tickets.Servicios
 
         }
 
+        public async Task<string> ObtenerMailAsignadoTicket(int id)
+        {
+            var tecnico = await _context.Usuarios.Where(x => x.UsuarioId == id).FirstOrDefaultAsync();
+
+
+            string correo = tecnico.Email;
+
+            return correo;
+
+        }
+
+
 
         public async Task AsignarTicket(Guid idTicket, int idAsignado, string comentario)
         {
@@ -233,6 +257,7 @@ namespace tickets.Servicios
 
             var comentarioHecho = new Comentario()
             {
+                IdTicket = idTicket,
                 Comentario1 = comentario,
                 IdUsuarioR = asignante,
                 IdUsuarioD = idAsignado
@@ -241,6 +266,10 @@ namespace tickets.Servicios
             _context.Update(ticket);
             _context.Add(comentarioHecho);
             await _context.SaveChangesAsync();
+
+            string correo = await ObtenerMailAsignadoTicket(idAsignado);
+
+            await _servicioEmail.EnviarAsignacionTicket(ticket.IdTicket, correo);
         }
 
         public async Task<IEnumerable<Ticket>> ListarTicketsPausados()
