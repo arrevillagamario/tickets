@@ -1,10 +1,9 @@
-﻿@model DetalleViewModel
+﻿@model ContactoViewModel
 @{
-    var idTicket = Model.idTicket;
-}
 
+}
 <button class="close-button absolute top-2 right-2 text-teal-600"
-        onclick="closeModalDetalle()">
+        onclick="closeModalCliente()">
     <svg xmlns="http://www.w3.org/2000/svg"
          width="40"
          height="40"
@@ -16,27 +15,25 @@
     </svg>
 </button>
 <h2 class="text-4xl font-bold text-teal-700 text-center mb-8">
-    Detalle del Ticket
+    Consulte o Notifique al Cliente
 </h2>
-    <div class="grid grid-cols-2 gap-4 mb-4">
-        <div>
-        <label class="block text-teal-700 text-sm font-bold mb-2"
-                  >DETALLE DEL PROBLEMA</label>
-            <textarea contenteditable="false" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200" rows="6"
-            >@Model.Descripcion
-            </textarea>
-        </div>
-        <div>
+<form asp-action="EnviarMail">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="grid grid-cols-2 gap-4">
+        <div class="col-span-2">
             <label class="block text-teal-700 text-sm font-bold mb-2"
-                  >DETALLE DE ACTIVIDAD</label>
-            <textarea contenteditable="false" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"rows="6">
-                @Model.comentarios
+                   for="comentario">DUDAS O CONSULTAS</label>
+            <textarea asp-for="comentario" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"rows="4">
+
             </textarea>
+            <span asp-validation-for="comentario"></span>
         </div>
     </div>
     <div class="flex items-center justify-center mt-4">
+        <input asp-for="idTicket" type="hidden" />
         <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            onclick="openModalCliente('@idTicket')">
-            Contactar al Cliente
+                type="submit">
+            Enviar Email
         </button>
     </div>
+</form>

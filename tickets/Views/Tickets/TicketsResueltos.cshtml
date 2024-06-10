@@ -74,6 +74,19 @@
     </div>
 </div>
 
+<div id="modalProgreso"
+     class="modal-overlay hidden fixed inset-0 flex items-center justify-center">
+    <div id="progreso-modal" class="modal-content relative p-10 w-full max-w-3xl">
+    </div>
+</div>
+
+<div id="modalCliente"
+     class="modal-overlay hidden fixed inset-0 flex items-center justify-center">
+    <div id="cliente-modal" class="modal-content relative p-8 w-full max-w-2xl">
+    </div>
+</div>
+
+
 
 <script>
     function openModalDetalle(idTicket) {
@@ -89,15 +102,27 @@
     function closeModalDetalle() {
         document.getElementById("modalDetalle").classList.add("hidden");
     }
-    function openModalProgreso() {
+    function openModalProgreso(idTicket) {
+
         document.getElementById("modalProgreso").classList.remove("hidden");
+        fetch('/Tickets/TicketProgreso/' + idTicket)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('progreso-modal').innerHTML = html;
+            });
     }
 
     function closeModalProgreso() {
         document.getElementById("modalProgreso").classList.add("hidden");
     }
-    function openModalCliente() {
+
+    function openModalCliente(idTicket) {
         document.getElementById("modalCliente").classList.remove("hidden");
+        fetch('/Tickets/ContactarCliente/' + idTicket)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('cliente-modal').innerHTML = html;
+            });
     }
 
     function closeModalCliente() {

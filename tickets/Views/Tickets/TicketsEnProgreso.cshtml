@@ -78,67 +78,7 @@
 
 <div id="modalCliente"
      class="modal-overlay hidden fixed inset-0 flex items-center justify-center">
-    <div class="modal-content relative p-8 w-full max-w-2xl">
-        <button class="close-button absolute top-2 right-2 text-teal-600"
-                onclick="closeModalCliente()">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 width="40"
-                 height="40"
-                 viewBox="0 0 24 24">
-                <path fill="#1D9E9A"
-                      fill-rule="evenodd"
-                      d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10M8.97 8.97a.75.75 0 0 1 1.06 0L12 10.94l1.97-1.97a.75.75 0 0 1 1.06 1.06L13.06 12l1.97 1.97a.75.75 0 0 1-1.06 1.06L12 13.06l-1.97 1.97a.75.75 0 0 1-1.06-1.06L10.94 12l-1.97-1.97a.75.75 0 0 1 0-1.06"
-                      clip-rule="evenodd" />
-            </svg>
-        </button>
-        <h2 class="text-4xl font-bold text-teal-700 text-center mb-8">
-            Información del Cliente
-        </h2>
-        <form>
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-teal-700 text-sm font-bold mb-2"
-                           for="nombre">NOMBRE</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
-                           id="nombre"
-                           type="text" />
-                </div>
-                <div>
-                    <label class="block text-teal-700 text-sm font-bold mb-2"
-                           for="apellido">APELLIDO</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
-                           id="apellido"
-                           type="text" />
-                </div>
-                <div>
-                    <label class="block text-teal-700 text-sm font-bold mb-2"
-                           for="email">E-MAIL</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
-                           id="email"
-                           type="email" />
-                </div>
-                <div>
-                    <label class="block text-teal-700 text-sm font-bold mb-2"
-                           for="telefono">TELÉFONO</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-200"
-                           id="telefono"
-                           type="tel" />
-                </div>
-                <div class="col-span-2">
-                    <label class="block text-teal-700 text-sm font-bold mb-2"
-                           for="consulta">DUDAS O CONSULTAS</label>
-                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                              id="consulta"
-                              rows="4"></textarea>
-                </div>
-            </div>
-            <div class="flex items-center justify-center mt-4">
-                <button class="bg-button hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        type="button">
-                    Enviar
-                </button>
-            </div>
-        </form>
+    <div id="cliente-modal" class="modal-content relative p-8 w-full max-w-2xl">
     </div>
 </div>
 
@@ -171,8 +111,13 @@
         document.getElementById("modalProgreso").classList.add("hidden");
     }
 
-    function openModalCliente() {
+    function openModalCliente(idTicket) {
         document.getElementById("modalCliente").classList.remove("hidden");
+        fetch('/Tickets/ContactarCliente/' + idTicket)
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('cliente-modal').innerHTML = html;
+            });
     }
 
     function closeModalCliente() {

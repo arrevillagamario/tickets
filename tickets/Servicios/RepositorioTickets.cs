@@ -7,8 +7,10 @@ namespace tickets.Servicios
     public interface IRepositorioTickets
     {
         Task AsignarTicket(Guid idTicket, int idAsignado, string comentario);
+        Task<ContactoViewModel> ContactarCliente(Guid id);
         Task<Ticket> CrearTicket(CrearTicketViewModels ticketNuevo);
         Task<DetalleViewModel> DetalleTicket(Guid id);
+        Task EnviarMailConsulta(ContactoViewModel request);
         Task<Guid> FinalizarTicket(Guid id);
         Task<IEnumerable<Ticket>> ListarTicketsAsignados();
         Task<IEnumerable<Ticket>> ListarTicketsCreados();
@@ -292,10 +294,10 @@ namespace tickets.Servicios
             return result;
         }
 
-        public async Task PausarTicket(Guid idTicket)
+        public async Task PausarTicket(Guid id)
         {
             int asignante = _autenticacion.GetClienteId();
-            var ticket = await _context.Tickets.Where(x => x.IdTicket == idTicket).FirstOrDefaultAsync();
+            var ticket = await _context.Tickets.Where(x => x.IdTicket == id).FirstOrDefaultAsync();
 
             ticket.Estado = 2;
 
@@ -305,6 +307,25 @@ namespace tickets.Servicios
             await _context.SaveChangesAsync();
         }
 
+        public async Task<ContactoViewModel> ContactarCliente(Guid id)
+        {
+            string correo = await ObtenerEmailTicket(id);
+
+            var contact = new ContactoViewModel()
+            {
+                idTicket = id,
+                comentario = ""
+            };
+            
+            return contact;
+        }
+
+        public async Task EnviarMailConsulta(ContactoViewModel request)
+        {
+            string correo = await ObtenerEmailTicket(request.idTicket);
+
+            await _servicioEmail.ContactarTicket(request.idTicket, correo, request.comentario);
+        }
 
     }
 

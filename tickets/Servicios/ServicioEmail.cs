@@ -6,6 +6,7 @@ namespace tickets.Servicios
 {
     public interface IServicioEmail
     {
+        Task ContactarTicket(Guid id, string correo, string contenidoHtml);
         Task EnviarAsignacionTicket(Guid id, string correo);
         Task EnviarConfirmacionTicket(Guid id, string correo);
         Task EnviarFinalizaciónTicket(Guid id, string correo);
@@ -72,12 +73,31 @@ namespace tickets.Servicios
 
             var cliete = new SendGridClient(apiKey);
             var from = new EmailAddress(email, nombre);
-            var subje = $"Su Ticket ha sido resuelto con Éxito";
+            var subje = $"Nuevo ticket asignado";
             var to = new EmailAddress(correo, nombre);
 
             string textoPlano = "Un nuevo Ticket se le ha sido asignado";
             var contenidoHtml = $@"El ticket con id: {id} se le ha sido asignado para su resolución.\n De: Ticket Master";
 
+            var singleMail = MailHelper.CreateSingleEmail(from, to, subje, textoPlano, contenidoHtml);
+
+            var respuesta = await cliete.SendEmailAsync(singleMail);
+
+        }
+
+        public async Task ContactarTicket(Guid id, string correo, string contenidoHtml )
+        {
+            var apiKey = _configuration.GetValue<string>("SENDGRID_API_KEY");
+            var email = _configuration.GetValue<string>("SENGRID_FROM");
+            var nombre = _configuration.GetValue<string>("SENDGRID_NOMBRE");
+
+            var cliete = new SendGridClient(apiKey);
+            var from = new EmailAddress(email, nombre);
+            var subje = $"Se Solicita Información de su caso.";
+            var to = new EmailAddress(correo, nombre);
+
+            string textoPlano = $"Se necesita información respecto a su ticket: {id}";
+        
             var singleMail = MailHelper.CreateSingleEmail(from, to, subje, textoPlano, contenidoHtml);
 
             var respuesta = await cliete.SendEmailAsync(singleMail);

@@ -1,9 +1,13 @@
-﻿namespace tickets.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace tickets.Models
 {
     public record CrearTicketViewModels
     {
-        public string? Servicio { get; set; } 
+        [Required(ErrorMessage = "El campo {0} es requerido")]
+        public string? Servicio { get; set; }
 
+        [Required(ErrorMessage = "El campo {0} es requerido")]
         public string? DescripcionProblema { get; set; } 
 
         public DateOnly Fecha { get; set; }

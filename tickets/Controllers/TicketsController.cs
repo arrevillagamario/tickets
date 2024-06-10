@@ -74,6 +74,12 @@ namespace tickets.Controllers
             return RedirectToAction("TicketsResueltos");
         }
 
+        public async Task<IActionResult> PausarTicket(Guid id)
+        {
+            await _repositorioTickets.PausarTicket(id);
+            return RedirectToAction("TicketsEnPausa");
+        }
+
         public async Task<IActionResult> TicketsEnProgreso()
         {
             var tickets = await _repositorioTickets.ListarTicketsAsignados();
@@ -100,6 +106,21 @@ namespace tickets.Controllers
             await _repositorioTickets.AsignarTicket(id, usuarioSeleccionado, comment);
 
             return  this.RedirectToAction("TicketsEnProgreso");
+        }
+
+
+        public async Task<IActionResult> ContactarCliente(Guid id)
+        {
+            var contacto = await _repositorioTickets.ContactarCliente(id);
+            return PartialView("_Contactar", contacto);
+        }
+
+        public async Task<IActionResult> EnviarMail(ContactoViewModel request)
+        {
+
+            await _repositorioTickets.EnviarMailConsulta(request);
+
+            return RedirectToAction("TicketsCreados");
         }
 
 
